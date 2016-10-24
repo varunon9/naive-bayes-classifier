@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Training set</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      	<meta name="author" content="Varun kumar" >
+  		<link href="css/bootstrap.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body style="padding: 1%; width: 100%; height: 100%;">
+        <h1>Training for spam email</h1>
+        <form action="train.php" method="post">
+            <p>Paste the spam email here</p>
+            <textarea rows="20" cols="100" name="spam" required></textarea>
+            <input type="submit" value="submit"/>
+        </form>
+        <h1>Training for ham email</h1>
+        <form action="train.php" method="post">
+            <p>Paste the ham email here</p>
+            <textarea rows="20" cols="100" name="ham" required></textarea>
+            <input type="submit" value="submit"/>
+        </form>
+    </body>
+</html>
