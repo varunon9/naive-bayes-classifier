@@ -10,7 +10,7 @@ on LAMP Stack.
 3. Open a terminal (`Ctrl + Alt + T`)
 4. Move to folder where you extracted zip folder
     `cd /path/to/folder`
-5. type `mysql -u username -p < naiveBayes.sql` and enter your password
+5. type `mysql -u username -p naiveBayes < naiveBayes.sql` and enter your password
 6. Training data set will be installed to mysql database. You can check it. 
 7. Update credentials into db_connect.php file (username and password)
 8. Paste a paragraph which you want to classify in data.txt file
