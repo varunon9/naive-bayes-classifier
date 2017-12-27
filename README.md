@@ -52,6 +52,6 @@ Implementing Naive Bayes Classification algorithm into PHP to classify given tex
 
 ### Database Schema
     
-    ![Database Schema](./screenshots/database-schema.png) 
+![Database Schema](./screenshots/database_schema.png) 
 
 ###### For any bug/mistake you can create github issue. Contact varunon9@gmail.com for suggestion/query. 
