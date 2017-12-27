@@ -1,34 +1,57 @@
 # Naive Bayes Classifier
 
-Implementing Naive Bayes Classification algorithm into PHP to classify given text as ham or spam. This application is based
-on LAMP Stack.
+Implementing Naive Bayes Classification algorithm into PHP to classify given text as ham or spam using MySql database.
 
-### How to use this application-
+### How to use
+    
+    <?php
 
-1. Download and extract zip.
-2. To install training set into your mysql database, create a database named naiveBayes
-3. Open a terminal (`Ctrl + Alt + T`)
-4. Move to folder where you extracted zip folder
-    `cd /path/to/folder`
-5. type `mysql -u username -p naiveBayes < naiveBayes.sql` and enter your password
-6. Training data set will be installed to mysql database. You can check it. 
-7. Update credentials into db_connect.php file (username and password)
-8. Paste a paragraph which you want to classify in data.txt file
-9. To classify use command `php main.php`    
+        require_once('NaiveBayesClassifier.php');
 
-This application is based on classifying real estate data as spam or ham i.e it takes a paragraph as input and classify it
-as ham if paragraph deals with real estate data else classify it as spam. 
-However this application can be used for classification of any type of data. All you have to do is use your own training set or 
-create an entirely new training data set (discussed below).
+        $classifier = new NaiveBayesClassifier();
+        $spam = Category::$SPAM;
+        $ham = Category::$HAM;
 
+        $classifier -> train('Have a pleasurable stay! Get up to 30% off + Flat 20% Cashback on Oyo Room' + 
+                ' bookings done via Paytm', $spam);
+        $classifier -> train('Lets Talk Fashion! Get flat 40% Cashback on Backpacks, Watches, Perfumes,' + 
+                ' Sunglasses & more', $spam);
+        $classifier -> train('One Stop Solution for all Electronic Needs! Get up to 64% off on Home Appliances,' + 
+                ' Mobiles & more', $spam);
+        $classifier -> train('Last Few Hours - Wardrobe Refresh Sale | Minimum 50% off', $spam);
+        $classifier -> train('Up to 90% Off on Fashion Clearance Sale', $spam);
+        $classifier -> train('Exciting Entertainment 📺 offers with FreeCharge!', $spam);
 
-### How to make your own training set?
+        $classifier -> train('Tushara sent you a new message', $ham);
+        $classifier -> train('Shivanand Yeurkar messaged on your talent card Application Engineer', $ham);
+        $classifier -> train('Your 11 job applications are on their way', $ham);
+        $classifier -> train('Queries about Remote-Controller-PC application', $ham);
+        $classifier -> train('Meeting today at 4:30 PM sharp, Market', $ham);
 
-1. Notice train.html file. This will be used to train the classifier and build training set. 
-2. Delete all existing data from mysql table trainingSet. Use command
-    `delete from trainingSet;`
-3. Open train.html file via apache web server in browser
-4. Paste data either in ham or spam category and submit it.
-5. You can check new training data set into trainingSet table
+        $category = $classifier -> classify('Scan Paytm QR Code to Pay & Win 100% Cashback');
+        echo $category; // spam
+        
+        $category = $classifier -> classify('Re: Job Change | Application Engineer');
+        echo $category; // ham
+
+    ?>
+
+### How to install the project-
+
+1. Download the project and extract zip.
+2. Create database in MySql-
+
+    1. mysql> create database naiveBayes;
+    2. mysql> use naiveBayes;
+    3. mysql> create table trainingSet (S_NO integer primary key auto_increment, document text, category varchar(255));
+    4. mysql> create table wordFrequency (S_NO integer primary key auto_increment, word varchar(255), count integer, category varchar(255));
+
+3. Open a terminal and move to project folder
+4. Edit database connection info in db_connect.php file
+5. Execute main.php `php main.php`
+
+### Database Schema
+    
+    ![Database Schema](./screenshots/database-schema.png) 
 
 ###### For any bug/mistake you can create github issue. Contact varunon9@gmail.com for suggestion/query. 

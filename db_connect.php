@@ -4,7 +4,7 @@
     */
     $servername = "localhost";
     $username = "root";
-    $password = "myPassword";
+    $password = "password123";
     $dbname = "naiveBayes";
 
     // Create connection

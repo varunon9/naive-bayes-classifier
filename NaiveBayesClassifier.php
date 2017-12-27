@@ -48,13 +48,13 @@
 	    	    foreach ($keywordsArray as $word) {
 
 	    	    	// if this word is already present with given category then update count else insert
-	    	    	$sql = mysqli_query($conn, "SELECT count(*) as total FROM wordFrequency WHERE words = '$word' and category= '$category' ");
+	    	    	$sql = mysqli_query($conn, "SELECT count(*) as total FROM wordFrequency WHERE word = '$word' and category= '$category' ");
 	    	    	$count = mysqli_fetch_assoc($sql);
 
 	    	    	if ($count['total'] == 0) {
-	    	    		$sql = mysqli_query($conn, "INSERT into wordFrequency values('$word', '$category', 1)");
+	    	    		$sql = mysqli_query($conn, "INSERT into wordFrequency (word, category, count) values('$word', '$category', 1)");
 	    	    	} else {
-	    	    		$sql = mysqli_query($conn, "UPDATE wordFrequency set count = count + 1 where words = '$word'");
+	    	    		$sql = mysqli_query($conn, "UPDATE wordFrequency set count = count + 1 where word = '$word'");
 	    	    	}
 	    	    }
 
@@ -130,11 +130,11 @@
     		// making connection to database
     	    require 'db_connect.php';
 
-    		$sql = mysqli_query($conn, "SELECT count(*) as total FROM trainingSet WHERE  category = $spam ");
+    		$sql = mysqli_query($conn, "SELECT count(*) as total FROM trainingSet WHERE  category = '$spam' ");
     		$spamCount = mysqli_fetch_assoc($sql);
     		$spamCount = $spamCount['total'];
 
-    		$sql = mysqli_query($conn, "SELECT count(*) as total FROM trainingSet WHERE  category = $ham ");
+    		$sql = mysqli_query($conn, "SELECT count(*) as total FROM trainingSet WHERE  category = '$ham' ");
     		$hamCount = mysqli_fetch_assoc($sql);
     		$hamCount = $hamCount['total'];
 
@@ -157,7 +157,7 @@
 
     		$bodyTextIsSpam = log($pSpam);
     		foreach ($keywordsArray as $word) {
-    			$sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where words = '$word' and category = $spam ");
+    			$sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where word = '$word' and category = '$spam' ");
     			$wordCount = mysqli_fetch_assoc($sql);
     			$wordCount = $wordCount['total'];
     			$bodyTextIsSpam += log(($wordCount + 1) / ($spamCount + $distinctWords));
@@ -165,7 +165,7 @@
 
     		$bodyTextIsHam = log($pHam);
     		foreach ($keywordsArray as $word) {
-    			$sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where words = '$word' and category = $ham ");
+    			$sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where word = '$word' and category = '$ham' ");
     			$wordCount = mysqli_fetch_assoc($sql);
     			$wordCount = $wordCount['total'];
     			$bodyTextIsHam += log(($wordCount + 1) / ($hamCount + $distinctWords));
